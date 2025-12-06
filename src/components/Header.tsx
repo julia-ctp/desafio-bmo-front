@@ -1,0 +1,90 @@
+"use client";
+
+import { Menu} from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { logoBMO } from "@/assets";
+import { Button } from "./ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+
+export default function Header() {
+  const pathname = usePathname();
+
+  const navLinks = [
+    { id: 1, href: "/teste", label: "Home" },
+    { id: 2, href: "/feed", label: "Feed" },
+    { id: 3, href: "/login", label: "Login" },
+    { id: 4, href: "/teste/#contato", label: "Contato" },
+  ];
+
+  return (
+    <header className="flex sticky items-center justify-between px-10 bg-gray-100 w-full mb-5">
+      <Link href={"/"}>
+        <Image
+          src={logoBMO}
+          height={65}
+          width={65}
+          alt="Logo BMO"
+          className="w-18 sm:w-20 lg:w-22"
+        />
+      </Link>
+      <nav className="hidden sm:flex items-center gap-6">
+        {navLinks.map((link) => (
+          <Link
+            key={link.id}
+            href={link.href}
+            className={`px-2 py-1 rounded-md ${
+              pathname === link.href
+                ? "bg-primary text-primary-foreground"
+                : "text-muted-foreground hover:text-foreground hover:bg-muted"
+            }`}
+          >
+            {link.label}
+          </Link>
+        ))}
+      </nav>
+
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            variant="ghost"
+            size="lg"
+            className="sm:hidden cursor-pointer"
+            aria-label="Open Menu"
+          >
+            <Menu />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent
+          className="w-56 animate-collapsible-down"
+          align="start"
+        >
+          <DropdownMenuGroup>
+            {navLinks.map((link) => (
+              <DropdownMenuItem key={link.id} asChild>
+                <Link
+                  href={link.href}
+                  className={`px-2 py-1 rounded-md ${
+                    pathname === link.href
+                      ? "bg-primary text-primary-foreground"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuGroup>
+        </DropdownMenuContent>
+      </DropdownMenu> 
+
+    </header>
+  );
+}

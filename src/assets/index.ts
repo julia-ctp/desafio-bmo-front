@@ -1,0 +1,1 @@
+export { default as logoBMO } from "./logo-bmo.png";
