@@ -18,10 +18,10 @@ export default function Header() {
   const pathname = usePathname();
 
   const navLinks = [
-    { id: 1, href: "/teste", label: "Home" },
+    { id: 1, href: "/", label: "Home" },
     { id: 2, href: "/feed", label: "Feed" },
     { id: 3, href: "/login", label: "Login" },
-    { id: 4, href: "/teste/#contato", label: "Contato" },
+    { id: 4, href: "/#contato", label: "Contato" },
   ];
 
   return (
@@ -40,7 +40,7 @@ export default function Header() {
           <Link
             key={link.id}
             href={link.href}
-            className={`px-2 py-1 rounded-md ${
+            className={`px-2 py-1 rounded-md cursor-pointer ${
               pathname === link.href
                 ? "bg-primary text-primary-foreground"
                 : "text-muted-foreground hover:text-foreground hover:bg-muted"
@@ -56,7 +56,7 @@ export default function Header() {
           <Button
             variant="ghost"
             size="lg"
-            className="sm:hidden cursor-pointer"
+            className="sm:hidden"
             aria-label="Open Menu"
           >
             <Menu />
@@ -71,7 +71,7 @@ export default function Header() {
               <DropdownMenuItem key={link.id} asChild>
                 <Link
                   href={link.href}
-                  className={`px-2 py-1 rounded-md ${
+                  className={`px-2 py-1 rounded-md cursor-pointer ${
                     pathname === link.href
                       ? "bg-primary text-primary-foreground"
                       : "text-muted-foreground hover:text-foreground hover:bg-muted"

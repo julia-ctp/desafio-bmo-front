@@ -1,28 +1,29 @@
 import NoticeForm from "@/components/forms/NoticeForm";
-import NoticeCard, { type Notice } from "@/components/NoticeCard";
+import NoticeCard from "@/components/NoticeCard";
+import type { NoticeItemResponse } from "@/schemas/notice.schemas";
 
-const initialNotices: Notice[] = [
+const initialNotices: NoticeItemResponse[] = [
   {
     id: "1",
-    name: "Maria Santos",
+    author: "Maria Santos",
     type: "importante",
-    date: "05/12/2024",
+    date: new Date("2025-12-05T14:00:00Z"),
     content:
       "Reunião de equipe amanhã às 14h na sala de conferências. Presença obrigatória de todos os departamentos.",
   },
   {
     id: "2",
-    name: "João Silva",
-    type: "informativo",
-    date: "05/12/2024",
+    author: "João Silva",
+    type: "nenhum",
+    date: new Date("2025-12-05T14:00:00Z"),
     content:
       "Tem bolo de aniversário na geladeira do refeitório! Todos estão convidados a se servir.",
   },
   {
     id: "3",
-    name: "Ana Oliveira",
+    author: "Ana Oliveira",
     type: "informativo",
-    date: "04/12/2024",
+    date: new Date("2025-12-05T14:00:00Z"),
     content:
       "Lembrete: as solicitações de férias para janeiro devem ser enviadas até sexta-feira.",
   },

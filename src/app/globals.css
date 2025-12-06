@@ -76,6 +76,12 @@
   --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
   --sidebar-border: oklch(0.92 0.004 286.32);
   --sidebar-ring: oklch(0.708 0 0);
+
+  [data-sonner-toast][data-rich-colors="true"][data-type="success"] {
+    background: oklch(94.473% 0.09017 152.718);
+    color: oklch(0.4157 0.1132 148.55);
+    border-color: oklch(84.459% 0.12503 153.746);
+  }
 }
 
 .dark {
@@ -111,7 +117,6 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.439 0 0);
 }
-
 
 @layer base {
   * {

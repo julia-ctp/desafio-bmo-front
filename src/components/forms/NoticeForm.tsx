@@ -1,6 +1,14 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus } from "lucide-react";
+import { Controller, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import {
+  type NoticeCreateInput,
+  NoticeCreateInputSchema,
+} from "@/schemas/notice.schemas";
+import SelectNoticeType from "../SelectNoticeType";
 import { Button } from "../ui/button";
 import {
   Dialog,
@@ -11,19 +19,29 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { Label } from "../ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
+import { Toaster } from "../ui/sonner";
 import { Textarea } from "../ui/textarea";
 
 export default function NoticeForm() {
+  const form = useForm<NoticeCreateInput>({
+    resolver: zodResolver(NoticeCreateInputSchema),
+    defaultValues: {
+      type: "nenhum",
+      content: "",
+    },
+  });
+  const { handleSubmit, control, formState, reset } = form;
+  const { isValid } = formState;
+
+  function handleCreateNotice(data: NoticeCreateInput) {
+    console.log(data);
+    reset();
+    toast.success("Aviso criado com sucesso!")
+  }
+
   return (
     <Dialog>
+      <Toaster richColors position="top-center" />
       <DialogTrigger asChild>
         <Button type="button" className="my-3">
           <Plus />
@@ -35,41 +53,50 @@ export default function NoticeForm() {
         <DialogHeader>
           <DialogTitle className="text-center">Novo Aviso</DialogTitle>
         </DialogHeader>
-        <form>
+        <form onSubmit={handleSubmit(handleCreateNotice)}>
           <div>
             <Label className="mb-2" htmlFor="noticeType">
-              Tipo do aviso
+              Tipo de aviso
             </Label>
-            <Select>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Selecione o tipo" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup className="mb-2">
-                  <SelectItem value={"importante"}>Importante</SelectItem>
-                  <SelectItem value={"informativo"}>Informativo</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
+            <Controller
+              name="type"
+              control={control}
+              render={({ field }) => (
+                <SelectNoticeType
+                  onChange={field.onChange}
+                  value={field.value}
+                />
+              )}
+            />
           </div>
 
           <div className="mt-5">
             <Label htmlFor="notice" className="mb-2">
               Aviso
             </Label>
-            <Textarea
-              id="notice"
-              placeholder="Digite seu aviso aqui."
-              rows={3}
+            <Controller
+              name="content"
+              control={control}
+              render={({ field }) => (
+                <Textarea
+                  id="notice"
+                  placeholder="Digite seu aviso aqui."
+                  onChange={field.onChange}
+                  value={field.value}
+                />
+              )}
             />
           </div>
+          <DialogFooter>
+            <Button
+              disabled={!isValid}
+              type="submit"
+              className="w-full my-5"
+            >
+              Enviar
+            </Button>
+          </DialogFooter>
         </form>
-
-        <DialogFooter>
-          <Button type="submit" className="w-full my-5">
-            Enviar
-          </Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
