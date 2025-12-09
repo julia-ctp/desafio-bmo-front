@@ -22,7 +22,7 @@ export default function SelectNoticeType({
       onValueChange={(v) => onChange?.(v as NoticeCreateInput["type"])}
       value={value !== "nenhum" ? value : ""}
     >
-      <SelectTrigger className="w-full">
+      <SelectTrigger className="w-full" id="type">
         <SelectValue placeholder="Selecione um tipo" />
       </SelectTrigger>
       <SelectContent>
