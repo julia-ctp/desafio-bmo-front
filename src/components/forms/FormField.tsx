@@ -16,6 +16,8 @@ type FieldProps<T extends FieldValues> = {
   label: string;
   placeholder?: string;
   as?: "input" | "textarea" | "select";
+  // maskRef?: React.RefCallback<HTMLInputElement>;
+  maskRef?: React.Ref<HTMLInputElement>;
 };
 
 export function FormField<T extends FieldValues>({
@@ -24,6 +26,7 @@ export function FormField<T extends FieldValues>({
   label,
   placeholder,
   as = "input",
+  maskRef
 }: FieldProps<T>) {
   return (
     <div>
@@ -50,7 +53,7 @@ export function FormField<T extends FieldValues>({
           }
 
           return (
-            <Input id={name} placeholder={placeholder} {...field} />
+            <Input id={name} placeholder={placeholder} {...field} ref={maskRef} />
           );
         }}
       />

@@ -25,7 +25,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="flex sticky items-center justify-between px-10 bg-gray-100 w-full mb-5">
+    <header className="flex sticky items-center justify-between px-10 py-1 mb-3 bg-background w-full shadow-xs ">
       <Link href={"/"}>
         <Image
           src={logoBMO}
@@ -35,14 +35,14 @@ export default function Header() {
           className="w-18 sm:w-20 lg:w-22"
         />
       </Link>
-      <nav className="hidden sm:flex items-center gap-6">
+      <nav className="hidden sm:flex items-center gap-1 md:gap-3">
         {navLinks.map((link) => (
           <Link
             key={link.id}
             href={link.href}
-            className={`px-2 py-1 rounded-md cursor-pointer ${
+            className={`px-4 py-1.5 rounded-md cursor-pointer ${
               pathname === link.href
-                ? "bg-primary text-primary-foreground"
+                ? "bg-primary text-primary-foreground hover:bg-primary/80"
                 : "text-muted-foreground hover:text-foreground hover:bg-muted"
             }`}
           >
@@ -73,7 +73,7 @@ export default function Header() {
                   href={link.href}
                   className={`px-2 py-1 rounded-md cursor-pointer ${
                     pathname === link.href
-                      ? "bg-primary text-primary-foreground"
+                      ? "bg-primary text-primary-foreground hover:bg-primary/80"
                       : "text-muted-foreground hover:text-foreground hover:bg-muted"
                   }`}
                 >
@@ -88,3 +88,4 @@ export default function Header() {
     </header>
   );
 }
+
