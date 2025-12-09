@@ -8,7 +8,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body suppressHydrationWarning>
+      <body className="bg-muted" suppressHydrationWarning>
         <Header />
         {children}
       </body>
