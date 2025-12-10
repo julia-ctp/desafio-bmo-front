@@ -31,7 +31,7 @@ const initialNotices: NoticeItemResponse[] = [
 
 export default function Feed() {
   return (
-    <div className="h-screen flex flex-col items-center mx-3">
+    <div className="h-full w-full flex flex-col items-center">
       <NoticeForm />
       {initialNotices.map((notice) => (
         <NoticeCard key={notice.id} notice={notice} />

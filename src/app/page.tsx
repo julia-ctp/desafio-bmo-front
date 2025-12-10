@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
-    <div className="min-h-screen text-center">
+    <main className="min-h-screen w-full text-center">
       <section className="py-12 px-7">
         <div className="max-w-2xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4 leading-tight">
@@ -47,6 +47,6 @@ export default function Home() {
           &copy; 2025
         </span>
       </footer>
-    </div>
+    </main>
   );
 }
