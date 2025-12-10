@@ -8,11 +8,13 @@ import {
   type ContactFormInput,
   contactFormSchema,
 } from "@/schemas/contact.schema";
+import { useContact } from "../../hook/contact.hook";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardFooter } from "../ui/card";
 import { FormField } from "./FormField";
 
 export default function ContactForm() {
+  const { createContact } = useContact();
   const { handleSubmit, control, reset } = useForm<ContactFormInput>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
@@ -23,8 +25,8 @@ export default function ContactForm() {
     },
   });
 
-  function handleSubmitForm(data: ContactFormInput) {
-    console.log(data);
+  async function handleSubmitForm(data: ContactFormInput) {
+    await createContact(data);
 
     reset();
     toast.success("Entraremos em contato em breve!");
@@ -56,9 +58,19 @@ export default function ContactForm() {
       <Toaster richColors position="top-center" />
       <form onSubmit={handleSubmit(handleSubmitForm, handleError)}>
         <CardContent className="text-start text-sm font-medium flex flex-col gap-5">
-          <FormField label="Nome completo" control={control} name="name" placeholder="Seu nome"/>
+          <FormField
+            label="Nome completo"
+            control={control}
+            name="name"
+            placeholder="Seu nome"
+          />
 
-          <FormField label="E-mail" name="email" control={control} placeholder="seu@email.com"/>
+          <FormField
+            label="E-mail"
+            name="email"
+            control={control}
+            placeholder="seu@email.com"
+          />
 
           <FormField
             label="Telefone"
