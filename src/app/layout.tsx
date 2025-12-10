@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import "./globals.css";
+import { AuthProvider } from "@/contexts/auth.context";
 
 export default function RootLayout({
   children,
@@ -9,8 +10,10 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className="bg-muted min-h-screen w-full" suppressHydrationWarning>
-        <Header />
-        {children}
+        <AuthProvider>
+          <Header />
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

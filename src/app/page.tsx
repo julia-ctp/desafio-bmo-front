@@ -1,9 +1,14 @@
+"use client";
 import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
 import ContactForm from "@/components/forms/ContactForm";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hook/auth.hook";
 
 export default function Home() {
+  const { user } = useAuth();
+  const isAuth = Boolean(user);
+
   return (
     <main className="min-h-screen w-full text-center">
       <section className="py-12 px-7">
@@ -18,14 +23,18 @@ export default function Home() {
             dia.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button>
-              <Link href={"/feed"} className="flex gap-2 items-center">
-                Acessar Feed <ArrowRightIcon />
-              </Link>
-            </Button>
-            <Button variant={"outline"}>
-              <Link href={"/login"}>Fazer login</Link>
-            </Button>
+            {isAuth && (
+              <Button>
+                <Link href={"/feed"} className="flex gap-2 items-center">
+                  Acessar Feed <ArrowRightIcon />
+                </Link>
+              </Button>
+            )}
+            {!isAuth && (
+              <Button variant={"outline"}>
+                <Link href={"/login"}>Fazer login</Link>
+              </Button>
+            )}
           </div>
         </div>
       </section>

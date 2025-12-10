@@ -5,6 +5,7 @@ import { LogIn } from "lucide-react";
 import { type FieldErrors, useForm } from "react-hook-form";
 import { Toaster, toast } from "sonner";
 import { useMaskInput } from "use-mask-input";
+import { useAuth } from "@/hook/auth.hook";
 import { type LoginFormInput, loginFormSchema } from "@/schemas/auth.schema";
 import type { ContactFormInput } from "@/schemas/contact.schema";
 import { InputPassword } from "../shadcn-studio/input/input-26";
@@ -21,11 +22,19 @@ export default function LoginForm() {
     },
   });
 
-  function handleSubmitForm(data: LoginFormInput) {
-    console.log(data);
+  const { login } = useAuth();
 
+  async function handleSubmitForm(data: LoginFormInput) {
+    const result = await login(data);
     reset();
-    toast.success("Entraremos em contato em breve!");
+
+    if (result.success) {
+      toast.success("Seja bem vindo!");
+      return;
+    }
+
+    toast.error(result.error);
+    return;
   }
 
   const cpfMask = useMaskInput({
