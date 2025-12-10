@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import React from "react";
 import type { LoginFormInput, LoginResponse } from "@/schemas/auth.schema";
 import { AuthServiceInstance } from "@/service/auth.service";
@@ -19,7 +18,6 @@ export const AuthContext = React.createContext<AuthContextProps | null>(null);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = React.useState<Employee | null>(null);
-  const router = useRouter();
 
   React.useEffect(() => {
     const stored = localStorage.getItem("user");

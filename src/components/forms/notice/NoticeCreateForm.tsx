@@ -8,7 +8,7 @@ import {
   type NoticeCreateInput,
   NoticeCreateInputSchema,
 } from "@/schemas/notice.schemas";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import {
   Dialog,
   DialogContent,
@@ -16,11 +16,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../ui/dialog";
-import { Toaster } from "../ui/sonner";
-import { FormField } from "./FormField";
+} from "../../ui/dialog";
+import { Toaster } from "../../ui/sonner";
+import { FormField } from "../FormField";
 
-export default function NoticeForm() {
+export default function NoticeCreateForm() {
   const form = useForm<NoticeCreateInput>({
     resolver: zodResolver(NoticeCreateInputSchema),
     defaultValues: {
@@ -74,7 +74,6 @@ export default function NoticeForm() {
             </Button>
           </DialogFooter>
         </form>
-
       </DialogContent>
     </Dialog>
   );
