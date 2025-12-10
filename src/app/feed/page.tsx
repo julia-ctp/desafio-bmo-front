@@ -1,5 +1,9 @@
+"use client";
+import { useRouter } from "next/navigation";
+import React from "react";
 import NoticeForm from "@/components/forms/NoticeForm";
 import NoticeCard from "@/components/NoticeCard";
+import { useAuth } from "@/hook/auth.hook";
 import type { NoticeItemResponse } from "@/schemas/notice.schemas";
 
 const initialNotices: NoticeItemResponse[] = [
@@ -30,6 +34,19 @@ const initialNotices: NoticeItemResponse[] = [
 ];
 
 export default function Feed() {
+  const router = useRouter();
+  const { user } = useAuth();
+
+  React.useEffect(() => {
+    if (!user) {
+      router.push("/login");
+    }
+  }, [user, router]);
+
+  if (!user) {
+    return null;
+  }
+
   return (
     <div className="h-full w-full flex flex-col items-center">
       <NoticeForm />

@@ -4,7 +4,9 @@ import { Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import React from "react";
 import { logoBMO } from "@/assets";
+import { useAuth } from "@/hook/auth.hook";
 import { Button } from "./ui/button";
 import {
   DropdownMenu,
@@ -16,16 +18,23 @@ import {
 
 export default function Header() {
   const pathname = usePathname();
+  const { user, logOut } = useAuth();
 
-  const navLinks = [
-    { id: 1, href: "/", label: "Home" },
-    { id: 2, href: "/feed", label: "Feed" },
-    { id: 3, href: "/login", label: "Login" },
-    { id: 4, href: "/#contato", label: "Contato" },
-  ];
+  const navLinks = React.useMemo(() => {
+    const baseLinks = [
+      { id: 1, href: "/", label: "Home" },
+      { id: 4, href: "/#contato", label: "Contato" },
+    ];
+
+    if (user) {
+      return [...baseLinks, { id: 2, href: "/feed", label: "Feed" }];
+    }
+
+    return [...baseLinks, { id: 3, href: "/login", label: "Login" }];
+  }, [user]);
 
   return (
-    <header className="flex sticky items-center justify-between px-10 py-1 mb-3 bg-background w-full shadow-xs ">
+    <header className="flex sticky items-center justify-between px-10 py-1 mb-3 bg-background w-full shadow-xs">
       <Link href={"/"}>
         <Image
           src={logoBMO}
@@ -35,6 +44,7 @@ export default function Header() {
           className="w-18 sm:w-20 lg:w-22"
         />
       </Link>
+
       <nav className="hidden sm:flex items-center gap-1 md:gap-3">
         {navLinks.map((link) => (
           <Link
@@ -49,6 +59,12 @@ export default function Header() {
             {link.label}
           </Link>
         ))}
+
+        {user && (
+          <Button variant="destructive" onClick={logOut}>
+            logOut
+          </Button>
+        )}
       </nav>
 
       <DropdownMenu>
@@ -62,6 +78,7 @@ export default function Header() {
             <Menu />
           </Button>
         </DropdownMenuTrigger>
+
         <DropdownMenuContent
           className="w-56 animate-collapsible-down"
           align="start"
