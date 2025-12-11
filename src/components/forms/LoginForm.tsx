@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LogIn } from "lucide-react";
 import { type FieldErrors, useForm } from "react-hook-form";
-import { Toaster, toast } from "sonner";
+import { toast } from "sonner";
 import { useMaskInput } from "use-mask-input";
 import { useAuth } from "@/hook/auth.hook";
 import { type LoginFormInput, loginFormSchema } from "@/schemas/auth.schema";
@@ -58,7 +58,6 @@ export default function LoginForm() {
 
   return (
     <Card className="w-full max-w-md px-4 block py-8">
-      <Toaster richColors position="top-center" />
 
       <form onSubmit={handleSubmit(handleSubmitForm, handleError)}>
         <CardContent className="text-start text-sm font-medium flex flex-col gap-5">

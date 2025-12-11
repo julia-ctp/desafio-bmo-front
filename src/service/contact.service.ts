@@ -8,7 +8,6 @@ export class ContactService {
   async postContact(data: ContactFormInput) {
     try {
       const response = await this.instance.post("/contact", data);
-      console.log(response);
 
       return response;
     } catch (error) {

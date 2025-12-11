@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { type FieldErrors, useForm } from "react-hook-form";
-import { Toaster, toast } from "sonner";
+import { toast } from "sonner";
 import { useMaskInput } from "use-mask-input";
 import {
   type ContactFormInput,
@@ -55,7 +55,6 @@ export default function ContactForm() {
 
   return (
     <Card className="w-full max-w-xl lg:max-w-3xl my-3 mx-auto">
-      <Toaster richColors position="top-center" />
       <form onSubmit={handleSubmit(handleSubmitForm, handleError)}>
         <CardContent className="text-start text-sm font-medium flex flex-col gap-5">
           <FormField
