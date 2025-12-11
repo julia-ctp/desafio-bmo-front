@@ -2,8 +2,10 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus } from "lucide-react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { useNotices } from "@/hook/notices.hook";
 import {
   type NoticeCreateInput,
   NoticeCreateInputSchema,
@@ -17,7 +19,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../../ui/dialog";
-import { Toaster } from "../../ui/sonner";
 import { FormField } from "../FormField";
 
 export default function NoticeCreateForm() {
@@ -30,16 +31,26 @@ export default function NoticeCreateForm() {
   });
   const { handleSubmit, control, formState, reset } = form;
   const { isValid } = formState;
+  const [isOpen, setIsOpen] = React.useState(false);
 
-  function handleCreateNotice(data: NoticeCreateInput) {
-    console.log(data);
+  const { createNotice } = useNotices();
+
+  async function handleCreateNotice(data: NoticeCreateInput) {
+    const result = await createNotice(data);
     reset();
-    toast.success("Aviso criado com sucesso!");
+    setIsOpen(false);
+
+    if (result.success) {
+      toast.success("Aviso criado com sucesso!");
+      return;
+    }
+
+    toast.error(result.error);
+    return;
   }
 
   return (
-    <Dialog>
-      <Toaster richColors position="top-center" />
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button type="button" className="my-3">
           <Plus />

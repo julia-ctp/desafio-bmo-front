@@ -2,7 +2,9 @@
 
 import { Calendar, Pencil, Trash } from "lucide-react";
 import { useState } from "react";
+import { useNotices } from "@/hook/notices.hook";
 import type { NoticeItemResponse } from "@/schemas/notice.schemas";
+import { formatDateTime } from "@/utils/formatDateTime";
 import NoticeUpdateForm from "./forms/notice/NoticeUpdateForm";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
@@ -14,17 +16,17 @@ interface NoticeCardProps {
   onDelete?: (id: string) => void;
 }
 
-export default function NoticeCard({
-  notice,
-  onEdit,
-  onDelete,
-}: NoticeCardProps) {
+export default function NoticeCard({ notice }: NoticeCardProps) {
   const [isEditOpen, setIsEditOpen] = useState(false);
+  const { deleteNotice } = useNotices();
 
   const handleEditClick = () => {
     setIsEditOpen(true);
-    onEdit?.(notice.id);
   };
+
+  async function handleDelete(id: string) {
+    await deleteNotice(id);
+  }
 
   return (
     <>
@@ -37,7 +39,7 @@ export default function NoticeCard({
 
             <span className="inline-flex items-center gap-1.5 text-sm text-muted-foreground">
               <Calendar className="w-3.5 h-3.5" />
-              {notice.date.toLocaleDateString("pt-BR")}
+              {formatDateTime(notice.updatedAt)}
             </span>
           </div>
         </CardHeader>
@@ -50,7 +52,7 @@ export default function NoticeCard({
 
         <CardFooter className="flex justify-between items-center">
           <span className="text-sm font-medium text-muted-foreground">
-            {notice.author}
+            {notice.employee.name} {notice.employee.lastName}
           </span>
 
           <div className="flex items-center gap-2">
@@ -67,7 +69,7 @@ export default function NoticeCard({
             <Button
               variant="destructive"
               size="sm"
-              onClick={() => onDelete?.(notice.id)}
+              onClick={() => handleDelete(notice.id)}
               className="flex items-center gap-1"
             >
               <Trash className="w-4 h-4" />

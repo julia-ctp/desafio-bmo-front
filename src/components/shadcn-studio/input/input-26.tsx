@@ -63,9 +63,6 @@ export const InputPassword = <T extends FieldValues>({
               </span>
             </Button>
           </div>
-          {error && (
-            <span className="text-sm text-red-500">{error.message}</span>
-          )}
         </div>
       )}
     />
