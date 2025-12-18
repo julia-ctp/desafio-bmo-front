@@ -26,10 +26,14 @@ export default function ContactForm() {
   });
 
   async function handleSubmitForm(data: ContactFormInput) {
-    await createContact(data);
-
+    const result = await createContact(data);
     reset();
-    toast.success("Entraremos em contato em breve!");
+    if (result.success) {
+      toast.success("Entraremos em contato em breve!");
+      return;
+    }
+    toast.error(result.error);
+    return;
   }
 
   const phoneMask = useMaskInput({

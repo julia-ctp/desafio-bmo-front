@@ -3,7 +3,7 @@ import { ContactServiceInstance } from "@/service/contact.service";
 
 export const useContact = () => {
   async function createContact(data: ContactFormInput) {
-    await ContactServiceInstance.postContact(data)
+    return await ContactServiceInstance.postContact(data)
   }
 
   return {

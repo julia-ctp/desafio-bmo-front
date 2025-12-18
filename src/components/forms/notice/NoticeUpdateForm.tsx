@@ -56,9 +56,16 @@ export default function NoticeUpdateForm({
   }, [isOpen, initialData, form]);
 
   async function handleUpdateNotice(data: NoticeUpdateInput) {
-    await updateNotice( noticeId, data );
-    toast.success("Aviso atualizado com sucesso!");
+    const result = await updateNotice( noticeId, data );
     setIsOpen(false);
+
+     if (result.success) {
+        toast.success("Aviso atualizado com sucesso!");
+        return;
+      }
+  
+      toast.error(result.error);
+      return;
   }
 
   return (
