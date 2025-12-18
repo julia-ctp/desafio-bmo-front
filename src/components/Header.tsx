@@ -62,7 +62,7 @@ export default function Header() {
 
         {user && (
           <Button variant="destructive" onClick={logOut}>
-            logOut
+            Logout
           </Button>
         )}
       </nav>
@@ -98,6 +98,11 @@ export default function Header() {
                 </Link>
               </DropdownMenuItem>
             ))}
+            {user && (
+              <Button variant="destructive" className="w-full flex justify-start px-2" onClick={logOut}>
+                Logout
+              </Button>
+            )}
           </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>
